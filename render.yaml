@@ -1,7 +1,7 @@
 services:
   - type: web
     name: aa-fundir-api
-    runtime: docker
+    env: docker
     plan: starter
     dockerfilePath: ./apps/api/Dockerfile
     healthCheckPath: /api/health
