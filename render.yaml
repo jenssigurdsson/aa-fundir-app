@@ -14,6 +14,7 @@ services:
 
   - type: web
     name: aa-fundir-web
+    env: static
     rootDir: apps/web
     buildCommand: npm install && npm run build
     staticPublishPath: dist
