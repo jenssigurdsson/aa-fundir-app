@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "AA Fundir",
+    "slug": "aa-fundir",
+    "scheme": "aafundir",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "is.aa.fundir"
+    },
+    "android": {
+      "package": "is.aa.fundir"
+    },
+    "plugins": [
+      "expo-notifications"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+node_modules
+.expo
+.DS_Store
+dist
+coverage
+.env
+apps/api/data/meetings.generated.json
+
