@@ -12,9 +12,8 @@ services:
       - key: REFRESH_TOKEN
         sync: false
 
-  - type: web
+  - type: static_site
     name: aa-fundir-web
-    runtime: static
     rootDir: apps/web
     buildCommand: npm install && npm run build
     staticPublishPath: dist
