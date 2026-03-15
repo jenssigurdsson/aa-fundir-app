@@ -12,7 +12,7 @@ services:
       - key: REFRESH_TOKEN
         sync: false
 
-  - type: static_site
+  - type: web
     name: aa-fundir-web
     rootDir: apps/web
     buildCommand: npm install && npm run build
