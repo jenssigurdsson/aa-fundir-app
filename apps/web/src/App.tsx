@@ -6,7 +6,9 @@ import { loadFavorites, saveFavorites } from "./storage";
 import { buildIcsDownload, distanceKm, formatMeetingTime } from "./utils";
 import type { Coordinates, Meeting } from "./types";
 
-const DEFAULT_CENTER: [number, number] = [64.9958, -19.02];
+const DEFAULT_CENTER: [number, number] = [64.1355, -21.8954];
+const DEFAULT_ZOOM = 10;
+const SELECTED_MEETING_ZOOM = 11;
 
 export default function App() {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
@@ -83,14 +85,13 @@ export default function App() {
     return result;
   }, [favorites, favoritesOnly, meetings, region, search, userLocation, weekday]);
 
-  const selectedMeeting = filteredMeetings.find((meeting) => meeting.id === selectedMeetingId) ?? filteredMeetings[0] ?? null;
+  const selectedMeeting = filteredMeetings.find((meeting) => meeting.id === selectedMeetingId) ?? null;
 
   const mapMeetings = filteredMeetings.filter((meeting) => meeting.coordinates);
   const mapCenter: [number, number] = selectedMeeting?.coordinates
     ? [selectedMeeting.coordinates.lat, selectedMeeting.coordinates.lng]
-    : mapMeetings[0]?.coordinates
-      ? [mapMeetings[0].coordinates!.lat, mapMeetings[0].coordinates!.lng]
-      : DEFAULT_CENTER;
+    : DEFAULT_CENTER;
+  const mapZoom = selectedMeeting?.coordinates ? SELECTED_MEETING_ZOOM : DEFAULT_ZOOM;
 
   function toggleFavorite(meetingId: string) {
     const next = favorites.includes(meetingId)
@@ -198,45 +199,6 @@ export default function App() {
           <div className="loading-state">Sæki fundi...</div>
         ) : (
           <section className="content-grid">
-            <div className="map-panel">
-              <div className="panel-header">
-                <div>
-                  <p>Kortayfirlit</p>
-                  <h3>Fundir á korti</h3>
-                </div>
-                <span>{mapMeetings.length} með hnit</span>
-              </div>
-              <MapContainer center={mapCenter} zoom={6} scrollWheelZoom className="map-canvas">
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {mapMeetings.map((meeting) => (
-                  <CircleMarker
-                    key={meeting.id}
-                    center={[meeting.coordinates!.lat, meeting.coordinates!.lng]}
-                    pathOptions={{
-                      color: meeting.id === selectedMeeting?.id ? "#f97316" : "#155e75",
-                      fillColor: meeting.id === selectedMeeting?.id ? "#fb923c" : "#0f766e",
-                      fillOpacity: 0.75,
-                    }}
-                    radius={meeting.id === selectedMeeting?.id ? 11 : 8}
-                    eventHandlers={{
-                      click: () => setSelectedMeetingId(meeting.id),
-                    }}
-                  >
-                    <Popup>
-                      <strong>{meeting.name}</strong>
-                      <br />
-                      {formatMeetingTime(meeting)}
-                      <br />
-                      {[meeting.location, meeting.address].filter(Boolean).join(", ")}
-                    </Popup>
-                  </CircleMarker>
-                ))}
-              </MapContainer>
-            </div>
-
             <div className="list-panel">
               <div className="panel-header">
                 <div>
@@ -295,6 +257,51 @@ export default function App() {
                   );
                 })}
               </div>
+            </div>
+
+            <div className="map-panel">
+              <div className="panel-header">
+                <div>
+                  <p>Kortayfirlit</p>
+                  <h3>Fundir á korti</h3>
+                </div>
+                <span>{mapMeetings.length} með hnit</span>
+              </div>
+              <MapContainer
+                key={`${mapCenter[0]}-${mapCenter[1]}-${mapZoom}`}
+                center={mapCenter}
+                zoom={mapZoom}
+                scrollWheelZoom
+                className="map-canvas"
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {mapMeetings.map((meeting) => (
+                  <CircleMarker
+                    key={meeting.id}
+                    center={[meeting.coordinates!.lat, meeting.coordinates!.lng]}
+                    pathOptions={{
+                      color: meeting.id === selectedMeeting?.id ? "#f97316" : "#155e75",
+                      fillColor: meeting.id === selectedMeeting?.id ? "#fb923c" : "#0f766e",
+                      fillOpacity: 0.75,
+                    }}
+                    radius={meeting.id === selectedMeeting?.id ? 11 : 8}
+                    eventHandlers={{
+                      click: () => setSelectedMeetingId(meeting.id),
+                    }}
+                  >
+                    <Popup>
+                      <strong>{meeting.name}</strong>
+                      <br />
+                      {formatMeetingTime(meeting)}
+                      <br />
+                      {[meeting.location, meeting.address].filter(Boolean).join(", ")}
+                    </Popup>
+                  </CircleMarker>
+                ))}
+              </MapContainer>
             </div>
           </section>
         )}
