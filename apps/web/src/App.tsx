@@ -124,11 +124,12 @@ export default function App() {
     <div className="page-shell">
       <header className="hero">
         <div className="hero-copy">
-          <p className="kicker">AA Fundir á Íslandi</p>
-          <h1>Fallegra, skýrara og tilbúið fyrir alvöru deployment</h1>
-          <p className="hero-text">
-            Kort, staðsetningarsíur, uppáhaldsfundir og dagatalstenging ofan á vikulega uppfært JSON API.
-          </p>
+   <p className="kicker">AA Fundir á Íslandi</p>
+<h1>Finndu næsta fund</h1>
+<p className="hero-text">
+  Skoðaðu fundi á korti, síaðu eftir degi og staðsetningu og vistaðu þá sem skipta þig máli.
+</p>
+
           <div className="hero-stats">
             <div>
               <span>{meetings.length}</span>
@@ -144,15 +145,6 @@ export default function App() {
             </div>
           </div>
         </div>
-        <aside className="hero-panel">
-          <p>Ráðlögð vara</p>
-          <h2>Web fyrir uppgötvun, Expo fyrir áminningar</h2>
-          <ul>
-            <li>React web er einfaldast í deployment og deilingu.</li>
-            <li>Expo appið er enn besta leiðin fyrir native áminningar.</li>
-            <li>Web útgáfan býður upp á `.ics` niðurhal fyrir dagatal.</li>
-          </ul>
-        </aside>
       </header>
 
       <main className="dashboard">
@@ -310,4 +302,3 @@ export default function App() {
     </div>
   );
 }
-
