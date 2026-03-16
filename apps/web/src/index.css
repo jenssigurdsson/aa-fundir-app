@@ -38,15 +38,11 @@ a {
 }
 
 .hero {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 20px;
-  align-items: stretch;
+  display: block;
   animation: rise 500ms ease-out;
 }
 
 .hero-copy,
-.hero-panel,
 .filter-card,
 .map-panel,
 .list-panel {
@@ -58,15 +54,15 @@ a {
 .hero-copy {
   background: linear-gradient(140deg, rgba(255, 252, 248, 0.92), rgba(255, 245, 232, 0.84));
   border-radius: 32px;
-  padding: 28px;
+  padding: 24px 28px;
 }
 
 .hero-copy h1 {
   margin: 8px 0 14px;
-  font-size: clamp(2.5rem, 4vw, 4.7rem);
-  line-height: 0.94;
+  font-size: clamp(2.6rem, 4vw, 4rem);
+  line-height: 0.96;
   font-family: "Iowan Old Style", "Palatino Linotype", serif;
-  max-width: 14ch;
+  max-width: 10ch;
 }
 
 .kicker,
@@ -79,9 +75,9 @@ a {
 }
 
 .hero-text {
-  max-width: 52ch;
-  font-size: 1.05rem;
-  line-height: 1.6;
+  max-width: 44ch;
+  font-size: 1rem;
+  line-height: 1.55;
   color: #31413c;
 }
 
@@ -89,7 +85,7 @@ a {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  margin-top: 28px;
+  margin-top: 22px;
 }
 
 .hero-stats div {
@@ -107,39 +103,6 @@ a {
 .hero-stats p {
   margin: 6px 0 0;
   color: var(--muted);
-}
-
-.hero-panel {
-  border-radius: 32px;
-  padding: 26px;
-  background:
-    linear-gradient(180deg, rgba(18, 38, 32, 0.96), rgba(29, 73, 65, 0.94)),
-    linear-gradient(140deg, rgba(255, 255, 255, 0.08), transparent);
-  color: #f8f5ed;
-}
-
-.hero-panel p {
-  margin: 0 0 8px;
-  color: rgba(248, 245, 237, 0.68);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.74rem;
-}
-
-.hero-panel h2 {
-  margin: 0 0 18px;
-  font-family: "Iowan Old Style", "Palatino Linotype", serif;
-  font-size: 2rem;
-  line-height: 1.05;
-}
-
-.hero-panel ul {
-  margin: 0;
-  padding-left: 18px;
-  display: grid;
-  gap: 12px;
-  color: rgba(248, 245, 237, 0.86);
-  line-height: 1.55;
 }
 
 .dashboard {
@@ -362,7 +325,6 @@ a {
 }
 
 @media (max-width: 1180px) {
-  .hero,
   .content-grid,
   .filters {
     grid-template-columns: 1fr;
@@ -382,7 +344,6 @@ a {
   }
 
   .hero-copy,
-  .hero-panel,
   .map-panel,
   .list-panel {
     border-radius: 24px;
@@ -400,4 +361,3 @@ a {
     height: 360px;
   }
 }
-
